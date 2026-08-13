@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="MesseLeads"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <Grid>
+
+        <!-- Corporate-Design Hintergrundflächen -->
+        <Grid>
+            <BoxView
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#18231E}"
+                HeightRequest="460"
+                Rotation="-18"
+                TranslationY="-140"
+                TranslationX="-90"
+                Opacity="1" />
+
+            <BoxView
+                BackgroundColor="#BCD5BF"
+                WidthRequest="260"
+                HeightRequest="900"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                TranslationX="130"
+                Opacity="{AppThemeBinding Light=0.45, Dark=0.18}" />
+
+            <BoxView
+                BackgroundColor="#004D9D"
+                WidthRequest="180"
+                HeightRequest="620"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="105"
+                TranslationY="120"
+                Opacity="{AppThemeBinding Light=0.14, Dark=0.22}" />
+
+            <BoxView
+                BackgroundColor="#CD1719"
+                WidthRequest="95"
+                HeightRequest="430"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="35"
+                TranslationY="80"
+                Opacity="{AppThemeBinding Light=0.16, Dark=0.18}" />
+        </Grid>
+
+        <ScrollView>
+            <Grid
+                RowDefinitions="Auto,*,Auto"
+                Padding="{OnIdiom Phone='24,28,24,22', Tablet='52,44,52,30', Desktop='56'}">
+
+                <!-- Logo -->
+                <VerticalStackLayout
+                    Grid.Row="0"
+                    Spacing="10"
+                    HorizontalOptions="Center"
+                    Margin="0,0,0,26">
+
+                    <Image
+                        Source="{AppThemeBinding Light=beckheun_logo_light.png, Dark=beckheun_logo_dark.png}"
+                        HeightRequest="{OnIdiom Phone=62, Tablet=86, Desktop=90}"
+                        MaximumWidthRequest="{OnIdiom Phone=270, Tablet=390, Desktop=410}"
+                        Aspect="AspectFit" />
+
+                </VerticalStackLayout>
+
+                <!-- Login Karte -->
+                <Border
+                    Grid.Row="1"
+                    Padding="{OnIdiom Phone='22,28', Tablet='42,44', Desktop='44'}"
+                    MaximumWidthRequest="{OnIdiom Phone=430, Tablet=580, Desktop=580}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                    StrokeShape="RoundRectangle 28">
+
+                    <Border.Shadow>
+                        <Shadow
+                            Brush="#000000"
+                            Offset="0,10"
+                            Radius="28"
+                            Opacity="{AppThemeBinding Light=0.16, Dark=0.42}" />
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="18">
+
+                        <Border
+                            WidthRequest="76"
+                            HeightRequest="76"
+                            HorizontalOptions="Center"
+                            StrokeThickness="7"
+                            Stroke="{AppThemeBinding Light=#EBF5EC, Dark=#293831}"
+                            BackgroundColor="{AppThemeBinding Light=#BCD5BF, Dark=#24402E}"
+                            StrokeShape="RoundRectangle 40"
+                            Margin="0,-66,0,4">
+
+                            <Label
+                                Text="ML"
+                                FontSize="22"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#004D9D, Dark=#FFFFFF}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <Label
+                            Text="MesseLeads"
+                            FontSize="{OnIdiom Phone=34, Tablet=42, Desktop=42}"
+                            FontAttributes="Bold"
+                            TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                            HorizontalTextAlignment="Center" />
+
+                        <Label
+                            Text="Bitte mit deinem Messe-App-Benutzer anmelden."
+                            FontSize="{OnIdiom Phone=16, Tablet=18, Desktop=18}"
+                            TextColor="{AppThemeBinding Light=#5F6763, Dark=#B9C5BF}"
+                            HorizontalTextAlignment="Center"
+                            Margin="0,-8,0,12" />
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label
+                                Text="Benutzername"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#394348, Dark=#DCE7E1}" />
+
+                            <Border
+                                Padding="16,0"
+                                HeightRequest="58"
+                                StrokeThickness="1"
+                                Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#101614}"
+                                StrokeShape="RoundRectangle 14">
+
+                                <Entry
+                                    x:Name="UsernameEntry"
+                                    Placeholder="Benutzername"
+                                    Keyboard="Text" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="7">
+                            <Label
+                                Text="Passwort"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#394348, Dark=#DCE7E1}" />
+
+                            <Border
+                                Padding="16,0"
+                                HeightRequest="58"
+                                StrokeThickness="1"
+                                Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#101614}"
+                                StrokeShape="RoundRectangle 14">
+
+                                <Entry
+                                    x:Name="PasswordEntry"
+                                    Placeholder="Passwort"
+                                    IsPassword="True" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <Button
+                            x:Name="LoginButton"
+                            Text="Anmelden"
+                            Clicked="OnLoginClicked"
+                            Margin="0,8,0,0" />
+
+                        <ActivityIndicator
+                            x:Name="LoadingIndicator"
+                            IsVisible="False"
+                            IsRunning="False"
+                            Color="#004D9D" />
+
+                        <Label
+                            x:Name="ErrorLabel"
+                            TextColor="{AppThemeBinding Light=#CD1719, Dark=#FF8D8D}"
+                            FontSize="14"
+                            HorizontalTextAlignment="Center"
+                            IsVisible="False" />
+
+                        <Label
+                            Text="Deine Daten werden sicher übertragen."
+                            FontSize="13"
+                            TextColor="{AppThemeBinding Light=#69756E, Dark=#AEBDB4}"
+                            HorizontalTextAlignment="Center"
+                            Margin="0,2,0,0" />
+
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Entwickler-Hinweis -->
+                <VerticalStackLayout
+                    Grid.Row="2"
+                    Spacing="2"
+                    HorizontalOptions="Center"
+                    Margin="0,28,0,0">
+
+                    <Label
+                        Text="Entwickelt und programmiert von"
+                        FontSize="12"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#AEBDB4}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Patrick Walther"
+                        FontSize="14"
+                        FontAttributes="Bold"
+                        TextColor="#004D9D"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Version 1.0.0"
+                        FontSize="12"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#AEBDB4}"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>

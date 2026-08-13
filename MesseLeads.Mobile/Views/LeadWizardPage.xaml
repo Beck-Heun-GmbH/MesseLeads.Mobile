@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.LeadWizardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MesseLeads.Mobile.ViewModels"
+    xmlns:models="clr-namespace:MesseLeads.Mobile.Models"
+    xmlns:controls="clr-namespace:MesseLeads.Mobile.Controls"
+    xmlns:wizard="clr-namespace:MesseLeads.Mobile.Controls.Wizard"
+    x:Name="Page"
+    x:DataType="viewModels:LeadWizardViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <Grid RowDefinitions="*,Auto">
+
+        <Grid InputTransparent="True">
+            <BoxView
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#18231E}"
+                HeightRequest="360"
+                Rotation="-16"
+                TranslationY="-130"
+                TranslationX="-80" />
+
+            <BoxView
+                BackgroundColor="#BCD5BF"
+                WidthRequest="220"
+                HeightRequest="740"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="120"
+                TranslationY="80"
+                Opacity="{AppThemeBinding Light=0.28, Dark=0.12}" />
+
+            <BoxView
+                BackgroundColor="#004D9D"
+                WidthRequest="150"
+                HeightRequest="520"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="90"
+                TranslationY="100"
+                Opacity="{AppThemeBinding Light=0.10, Dark=0.18}" />
+        </Grid>
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout
+                Padding="{OnIdiom Phone='24,26,24,120', Tablet='48,38,48,130', Desktop='56,42,56,130'}"
+                Spacing="20">
+
+                <controls:AppHeaderView
+                    Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
+                    Greeting="Lead erfassen"
+                    Subtitle="{Binding TradeFairHeaderText}"
+                    ShowBackButton="True"
+                    ShowMenuButton="True"
+                    HomeEnabled="True" />
+
+                <Border
+                    Padding="18"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                    StrokeShape="RoundRectangle 24">
+
+                    <VerticalStackLayout Spacing="10">
+                        <Label
+                            Text="{Binding ProgressText}"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#004D9D" />
+
+                        <Label
+                            Text="{Binding StepTitle}"
+                            FontSize="{OnIdiom Phone=27, Tablet=34, Desktop=34}"
+                            FontAttributes="Bold"
+                            TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                        <Label
+                            Text="{Binding StepDescription}"
+                            FontSize="15"
+                            TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <ContentView x:Name="StepContentHost" />
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Bottom Navigation -->
+        <Border
+            Grid.Row="1"
+            Padding="18,12"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}">
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button Text="Zurück"
+                        IsVisible="{Binding CanGoPrevious}"
+                        BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                        Command="{Binding PreviousCommand}" />
+
+                <Button Grid.Column="1"
+                        Text="Weiter"
+                        IsVisible="{Binding CanGoNext}"
+                        Command="{Binding NextCommand}" />
+
+                <Button Grid.Column="1"
+                        Text="Lead speichern"
+                        IsVisible="{Binding CanFinish}"
+                        BackgroundColor="#004D9D"
+                        TextColor="White"
+                        Command="{Binding FinishCommand}" />
+            </Grid>
+        </Border>
+
+    </Grid>
+</ContentPage>

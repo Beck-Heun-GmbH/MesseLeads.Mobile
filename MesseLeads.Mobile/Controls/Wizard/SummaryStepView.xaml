@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.SummaryStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        Padding="20"
+        StrokeThickness="1"
+        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+        StrokeShape="RoundRectangle 24">
+
+        <VerticalStackLayout Spacing="14">
+
+            <Label
+                Text="Zusammenfassung"
+                FontSize="21"
+                FontAttributes="Bold"
+                TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+            <Border
+                Padding="16"
+                StrokeThickness="0"
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                StrokeShape="RoundRectangle 18">
+
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        Text="{Binding LeadTitle}"
+                        FontSize="20"
+                        FontAttributes="Bold"
+                        TextColor="#004D9D" />
+
+                    <Label
+                        Text="{Binding Company}"
+                        FontSize="15"
+                        TextColor="{AppThemeBinding Light=#394348, Dark=#DCE7E1}" />
+
+                    <Label
+                        Text="{Binding Email}"
+                        FontSize="14"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                    <Label
+                        Text="{Binding Phone}"
+                        FontSize="14"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Padding="14,12"
+                StrokeThickness="1"
+                Stroke="{AppThemeBinding Light=#BFCBC5, Dark=#61706A}"
+                BackgroundColor="{AppThemeBinding Light=#F6FAF8, Dark=#17211E}"
+                StrokeShape="RoundRectangle 16">
+
+                <Editor
+                    Placeholder="Allgemeine Notizen"
+                    AutoSize="TextChanges"
+                    MinimumHeightRequest="130"
+                    Text="{Binding Notes}"
+                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                    PlaceholderColor="{AppThemeBinding Light=#6F7A74, Dark=#9DAAA4}"
+                    BackgroundColor="Transparent" />
+            </Border>
+
+            <Label
+                Text="Prüfe die Angaben. Mit „Lead speichern“ wird der Lead lokal gespeichert und später synchronisiert."
+                FontSize="13"
+                TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

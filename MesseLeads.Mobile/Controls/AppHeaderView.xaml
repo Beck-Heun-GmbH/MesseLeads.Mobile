@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.AppHeaderView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Name="Root">
+
+    <Border
+        Padding="{OnIdiom Phone='18,14', Tablet='28,18', Desktop='30,18'}"
+        StrokeThickness="0"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}">
+
+        <Grid ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="12">
+
+            <Button
+                Grid.Column="0"
+                Text="‹"
+                WidthRequest="44"
+                HeightRequest="44"
+                CornerRadius="22"
+                Padding="0"
+                FontSize="34"
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                IsVisible="{Binding Source={x:Reference Root}, Path=ShowBackButton}"
+                Clicked="OnBackClicked" />
+
+            <Border
+                Grid.Column="1"
+                WidthRequest="52"
+                HeightRequest="52"
+                StrokeThickness="0"
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                StrokeShape="RoundRectangle 18"
+                VerticalOptions="Center">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnHomeTapped" />
+                </Border.GestureRecognizers>
+
+                <Image
+                    Source="{AppThemeBinding Light=beckheun_fox_light.png, Dark=beckheun_fox_dark.png}"
+                    WidthRequest="34"
+                    HeightRequest="34"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Border>
+
+            <VerticalStackLayout
+                Grid.Column="2"
+                Spacing="1"
+                VerticalOptions="Center">
+
+                <Label
+                    Text="{Binding Source={x:Reference Root}, Path=Greeting}"
+                    FontSize="{OnIdiom Phone=23, Tablet=30, Desktop=30}"
+                    FontAttributes="Bold"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label
+                    Text="{Binding Source={x:Reference Root}, Path=Subtitle}"
+                    FontSize="{OnIdiom Phone=13, Tablet=15, Desktop=15}"
+                    LineBreakMode="TailTruncation"
+                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+            </VerticalStackLayout>
+
+            <Border
+                Grid.Column="3"
+                WidthRequest="48"
+                HeightRequest="48"
+                StrokeThickness="0"
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                StrokeShape="RoundRectangle 18"
+                IsVisible="{Binding Source={x:Reference Root}, Path=ShowMenuButton}">
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnMenuTapped" />
+                </Border.GestureRecognizers>
+
+                <Label
+                    Text="☰"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Border>
+
+        </Grid>
+    </Border>
+</ContentView>

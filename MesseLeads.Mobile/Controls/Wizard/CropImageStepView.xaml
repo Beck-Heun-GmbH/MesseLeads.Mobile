@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.CropImageStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MesseLeads.Mobile.Converters">
+
+    <ContentView.Resources>
+        <converters:CropOverlayBoundsConverter x:Key="CropOverlayBoundsConverter" />
+    </ContentView.Resources>
+
+    <VerticalStackLayout Spacing="16">
+
+        <Border
+            Padding="20"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+            StrokeShape="RoundRectangle 24">
+
+            <VerticalStackLayout Spacing="16">
+
+                <Label
+                    Text="Foto zuschneiden"
+                    FontSize="21"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label
+                    Text="{Binding CropStatusText}"
+                    FontSize="15"
+                    LineBreakMode="WordWrap"
+                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                <Border
+                    Padding="0"
+                    HeightRequest="{OnIdiom Phone=320, Tablet=430, Desktop=460}"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#CBD8D1, Dark=#3F4E48}"
+                    BackgroundColor="#111111"
+                    StrokeShape="RoundRectangle 18">
+
+                    <AbsoluteLayout IsClippedToBounds="True">
+                        <Image
+                            Source="{Binding CropImagePath}"
+                            Aspect="AspectFit"
+                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                            AbsoluteLayout.LayoutFlags="All" />
+
+                        <BoxView
+                            Color="#99000000"
+                            InputTransparent="True"
+                            AbsoluteLayout.LayoutFlags="All">
+                            <AbsoluteLayout.LayoutBounds>
+                                <MultiBinding Converter="{StaticResource CropOverlayBoundsConverter}" ConverterParameter="Top">
+                                    <Binding Path="CropLeft" />
+                                    <Binding Path="CropTop" />
+                                    <Binding Path="CropRight" />
+                                    <Binding Path="CropBottom" />
+                                </MultiBinding>
+                            </AbsoluteLayout.LayoutBounds>
+                        </BoxView>
+
+                        <BoxView
+                            Color="#99000000"
+                            InputTransparent="True"
+                            AbsoluteLayout.LayoutFlags="All">
+                            <AbsoluteLayout.LayoutBounds>
+                                <MultiBinding Converter="{StaticResource CropOverlayBoundsConverter}" ConverterParameter="Bottom">
+                                    <Binding Path="CropLeft" />
+                                    <Binding Path="CropTop" />
+                                    <Binding Path="CropRight" />
+                                    <Binding Path="CropBottom" />
+                                </MultiBinding>
+                            </AbsoluteLayout.LayoutBounds>
+                        </BoxView>
+
+                        <BoxView
+                            Color="#99000000"
+                            InputTransparent="True"
+                            AbsoluteLayout.LayoutFlags="All">
+                            <AbsoluteLayout.LayoutBounds>
+                                <MultiBinding Converter="{StaticResource CropOverlayBoundsConverter}" ConverterParameter="Left">
+                                    <Binding Path="CropLeft" />
+                                    <Binding Path="CropTop" />
+                                    <Binding Path="CropRight" />
+                                    <Binding Path="CropBottom" />
+                                </MultiBinding>
+                            </AbsoluteLayout.LayoutBounds>
+                        </BoxView>
+
+                        <BoxView
+                            Color="#99000000"
+                            InputTransparent="True"
+                            AbsoluteLayout.LayoutFlags="All">
+                            <AbsoluteLayout.LayoutBounds>
+                                <MultiBinding Converter="{StaticResource CropOverlayBoundsConverter}" ConverterParameter="Right">
+                                    <Binding Path="CropLeft" />
+                                    <Binding Path="CropTop" />
+                                    <Binding Path="CropRight" />
+                                    <Binding Path="CropBottom" />
+                                </MultiBinding>
+                            </AbsoluteLayout.LayoutBounds>
+                        </BoxView>
+
+                        <Border
+                            Stroke="#FFFFFF"
+                            StrokeThickness="2"
+                            BackgroundColor="#22FFFFFF"
+                            InputTransparent="True"
+                            AbsoluteLayout.LayoutFlags="All">
+                            <AbsoluteLayout.LayoutBounds>
+                                <MultiBinding Converter="{StaticResource CropOverlayBoundsConverter}">
+                                    <Binding Path="CropLeft" />
+                                    <Binding Path="CropTop" />
+                                    <Binding Path="CropRight" />
+                                    <Binding Path="CropBottom" />
+                                </MultiBinding>
+                            </AbsoluteLayout.LayoutBounds>
+                        </Border>
+                    </AbsoluteLayout>
+                </Border>
+
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    RowDefinitions="Auto,Auto,Auto,Auto"
+                    ColumnSpacing="12"
+                    RowSpacing="10">
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Links" VerticalOptions="Center" />
+                    <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="0.9" Value="{Binding CropLeft}" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Oben" VerticalOptions="Center" />
+                    <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="0.9" Value="{Binding CropTop}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Rechts" VerticalOptions="Center" />
+                    <Slider Grid.Row="2" Grid.Column="1" Minimum="0.1" Maximum="1" Value="{Binding CropRight}" />
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Unten" VerticalOptions="Center" />
+                    <Slider Grid.Row="3" Grid.Column="1" Minimum="0.1" Maximum="1" Value="{Binding CropBottom}" />
+                </Grid>
+
+                <Label
+                    Text="{Binding CropSelectionText}"
+                    FontSize="13"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                <Button
+                    Text="Zuschneiden und analysieren"
+                    Command="{Binding CropBusinessCardImageCommand}" />
+
+                <Button
+                    Text="Original analysieren"
+                    Command="{Binding UseOriginalBusinessCardImageCommand}"
+                    BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                    TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}" />
+
+            </VerticalStackLayout>
+        </Border>
+
+    </VerticalStackLayout>
+</ContentView>

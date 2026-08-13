@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MesseLeads.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MesseLeads.Mobile.Controls"
+    x:DataType="viewModels:HomeViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <Grid>
+
+        <!-- Hintergrundflächen im Beck+Heun-Stil -->
+        <Grid InputTransparent="True">
+            <BoxView
+                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#18231E}"
+                HeightRequest="360"
+                Rotation="-16"
+                TranslationY="-130"
+                TranslationX="-80" />
+
+            <BoxView
+                BackgroundColor="#BCD5BF"
+                WidthRequest="220"
+                HeightRequest="740"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="120"
+                TranslationY="80"
+                Opacity="{AppThemeBinding Light=0.28, Dark=0.12}" />
+
+            <BoxView
+                BackgroundColor="#004D9D"
+                WidthRequest="150"
+                HeightRequest="520"
+                Rotation="42"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                TranslationX="90"
+                TranslationY="100"
+                Opacity="{AppThemeBinding Light=0.10, Dark=0.18}" />
+        </Grid>
+
+        <ScrollView>
+            <VerticalStackLayout
+                Padding="{OnIdiom Phone='24,26,24,110', Tablet='48,38,48,120', Desktop='56,42,56,120'}"
+                Spacing="22">
+
+                <controls:AppHeaderView
+                    Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
+                    Greeting="{Binding DisplayName, StringFormat='Hallo {0} 👋'}"
+                    Subtitle="{Binding TradeFairHeaderText}"
+                    ShowBackButton="False"
+                    ShowMenuButton="True"
+                    HomeEnabled="False"
+                    MenuCommand="{Binding OpenMenuCommand}" />
+
+                <Border
+                    Padding="16"
+                    StrokeThickness="1"
+                    Stroke="#7AA9E6"
+                    BackgroundColor="{AppThemeBinding Light=#EDF5FF, Dark=#14243A}"
+                    StrokeShape="RoundRectangle 18"
+                    IsVisible="{Binding ShowSaveBannerSyncing}">
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light=#DCEBFF, Dark=#1D385A}"
+                            StrokeShape="RoundRectangle 17"
+                            VerticalOptions="Center">
+
+                            <ActivityIndicator
+                                WidthRequest="20"
+                                HeightRequest="20"
+                                IsRunning="{Binding ShowSaveBannerSyncing}"
+                                Color="#004D9D"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label
+                                Text="{Binding SaveBannerTitle}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#123A66, Dark=#E8F2FF}" />
+
+                            <Label
+                                Text="{Binding SaveBannerMessage}"
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light=#315F91, Dark=#A8CDF5}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border
+                    Padding="16"
+                    StrokeThickness="1"
+                    Stroke="#7AC995"
+                    BackgroundColor="{AppThemeBinding Light=#EAF8EF, Dark=#173222}"
+                    StrokeShape="RoundRectangle 18"
+                    IsVisible="{Binding ShowSaveBannerSynced}">
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light=#D8F1E1, Dark=#214B31}"
+                            StrokeShape="RoundRectangle 17"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="✓"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="#188047"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label
+                                Text="{Binding SaveBannerTitle}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#123B23, Dark=#E7F7EC}" />
+
+                            <Label
+                                Text="{Binding SaveBannerMessage}"
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light=#2D6A43, Dark=#A9DDBA}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <Border
+                    Padding="16"
+                    StrokeThickness="1"
+                    Stroke="#D8BB5D"
+                    BackgroundColor="{AppThemeBinding Light=#FFF7E2, Dark=#332B16}"
+                    StrokeShape="RoundRectangle 18"
+                    IsVisible="{Binding ShowSaveBannerLocalOnly}">
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light=#F5E6B3, Dark=#51431F}"
+                            StrokeShape="RoundRectangle 17"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="!"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="#8B6500"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label
+                                Text="{Binding SaveBannerTitle}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#4A3500, Dark=#FFF4CC}" />
+
+                            <Label
+                                Text="{Binding SaveBannerMessage}"
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light=#6B5414, Dark=#EAD48A}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Synchronisationsstatus kompakt -->
+                <Border
+                    Padding="16"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                    StrokeShape="RoundRectangle 20">
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer
+                            Command="{Binding OpenSyncCommand}" />
+                    </Border.GestureRecognizers>
+
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                            StrokeShape="RoundRectangle 18"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="✓"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="#004D9D"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+
+                        <VerticalStackLayout Grid.Column="1" Spacing="2">
+                            <Label
+                                Text="{Binding SyncStatusText}"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}" />
+
+                            <Label
+                                Text="{Binding PendingUploadsText}"
+                                FontSize="13"
+                                TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                        </VerticalStackLayout>
+
+                        <ActivityIndicator
+                            Grid.Column="2"
+                            IsRunning="{Binding IsBusy}"
+                            IsVisible="{Binding IsBusy}"
+                            Color="#004D9D"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <!-- Hauptaktionen -->
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Wie möchtest du den Lead erfassen?"
+                        FontSize="{OnIdiom Phone=22, Tablet=28, Desktop=28}"
+                        FontAttributes="Bold"
+                        TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                    <Label
+                        Text="Wähle den passenden Erfassungsweg für den Messekontakt."
+                        FontSize="15"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+
+                <FlexLayout
+                    Direction="Row"
+                    Wrap="Wrap"
+                    AlignItems="Stretch"
+                    JustifyContent="SpaceBetween">
+
+                    <!-- Foto -->
+                    <Border
+                        Padding="18"
+                        Margin="0,0,0,16"
+                        MinimumHeightRequest="132"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                        StrokeShape="RoundRectangle 24"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='48%', Desktop='23%'}">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CaptureBusinessCardCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border
+                                WidthRequest="54"
+                                HeightRequest="54"
+                                StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                                StrokeShape="RoundRectangle 18">
+
+                                <Label
+                                    Text="📷"
+                                    FontSize="26"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                <Label
+                                    Text="Visitenkarte fotografieren"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Label
+                                    Text="Kamera direkt öffnen und Daten erkennen."
+                                    FontSize="14"
+                                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Galerie -->
+                    <Border
+                        Padding="18"
+                        Margin="0,0,0,16"
+                        MinimumHeightRequest="132"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                        StrokeShape="RoundRectangle 24"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='48%', Desktop='23%'}">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding PickBusinessCardPhotoCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border
+                                WidthRequest="54"
+                                HeightRequest="54"
+                                StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light=#F2F5FF, Dark=#202B48}"
+                                StrokeShape="RoundRectangle 18">
+
+                                <Label
+                                    Text="🖼"
+                                    FontSize="26"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                <Label
+                                    Text="Bild auswählen"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Label
+                                    Text="Foto aus der Galerie übernehmen."
+                                    FontSize="14"
+                                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- QR -->
+                    <Border
+                        Padding="18"
+                        Margin="0,0,0,16"
+                        MinimumHeightRequest="132"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                        StrokeShape="RoundRectangle 24"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='48%', Desktop='23%'}">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ScanQrCodeCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border
+                                WidthRequest="54"
+                                HeightRequest="54"
+                                StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light=#EEF4FF, Dark=#172841}"
+                                StrokeShape="RoundRectangle 18">
+
+                                <Label
+                                    Text="▦"
+                                    FontSize="30"
+                                    FontAttributes="Bold"
+                                    TextColor="#004D9D"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                <Label
+                                    Text="QR-Code scannen"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Label
+                                    Text="QR-Code lesen und Lead direkt vorbereiten."
+                                    FontSize="14"
+                                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                    <!-- Manuell -->
+                    <Border
+                        Padding="18"
+                        Margin="0,0,0,16"
+                        MinimumHeightRequest="132"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                        StrokeShape="RoundRectangle 24"
+                        FlexLayout.Basis="{OnIdiom Phone='100%', Tablet='48%', Desktop='23%'}">
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CreateManualLeadCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                            <Border
+                                WidthRequest="54"
+                                HeightRequest="54"
+                                StrokeThickness="0"
+                                BackgroundColor="{AppThemeBinding Light=#F4F6F5, Dark=#26312D}"
+                                StrokeShape="RoundRectangle 18">
+
+                                <Label
+                                    Text="✎"
+                                    FontSize="28"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                            </Border>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="5" VerticalOptions="Center">
+                                <Label
+                                    Text="Manuell erfassen"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Label
+                                    Text="Lead ohne Foto oder QR-Code anlegen."
+                                    FontSize="14"
+                                    TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+
+                </FlexLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+        
+    </Grid>
+</ContentPage>

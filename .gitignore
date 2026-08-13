@@ -1,0 +1,90 @@
+# ============================================
+# MesseLeads.Mobile
+# .NET MAUI / Visual Studio / iOS / macOS
+# ============================================
+
+# Visual Studio
+.vs/
+**/.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET / MAUI build output
+[Bb]in/
+[Oo]bj/
+**/[Bb]in/
+**/[Oo]bj/
+
+# Build directories
+[Bb]uild/
+**/[Bb]uild/
+
+# Visual Studio / MSBuild
+*.cache
+*.pdb
+*.ilk
+*.obj
+*.iobj
+*.ipdb
+*.opendb
+*.VC.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+**/packages/
+
+# Test results
+TestResults/
+**/TestResults/
+
+# Logs / temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+DerivedData/
+**/DerivedData/
+xcuserdata/
+**/xcuserdata/
+*.xcuserstate
+
+# Apple debug symbols
+*.dSYM/
+**/*.dSYM/
+
+# Native iOS build output
+MesseLeads.Mobile/Native/iOS/build/
+
+# Android build artifacts
+*.apk
+*.aab
+
+# MAUI generated artifacts
+artifacts/
+**/artifacts/
+
+# Rider / JetBrains
+.idea/
+**/.idea/
+
+# VS Code local settings
+.vscode/
+
+# Local Visual Studio data accidentally created in repository root
+/Visual Studio 18/
+
+# Operating system files
+Thumbs.db
+Desktop.ini

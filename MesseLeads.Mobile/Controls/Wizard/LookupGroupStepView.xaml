@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.LookupGroupStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MesseLeads.Mobile.Models">
+
+    <VerticalStackLayout Spacing="14">
+
+        <Border
+            Padding="18"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#D8E4DD, Dark=#41524B}"
+            BackgroundColor="{AppThemeBinding Light=#F6FAF8, Dark=#17211E}"
+            StrokeShape="RoundRectangle 18"
+            IsVisible="{Binding ShowLookupDownloadPrompt}">
+
+            <VerticalStackLayout Spacing="12">
+                <Label
+                    Text="{Binding LookupDownloadText}"
+                    FontSize="15"
+                    TextColor="{AppThemeBinding Light=#394348, Dark=#DCE7E1}" />
+
+                <ActivityIndicator
+                    IsRunning="{Binding IsDownloadingLookups}"
+                    IsVisible="{Binding IsDownloadingLookups}"
+                    Color="#004D9D" />
+
+                <Button
+                    Text="Stammdaten synchronisieren"
+                    Command="{Binding DownloadLookupsCommand}" />
+            </VerticalStackLayout>
+        </Border>
+
+        <VerticalStackLayout
+            Spacing="0"
+            BindableLayout.ItemsSource="{Binding CurrentLookupItems}">
+
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:SelectableLookupItem">
+                    <VerticalStackLayout Spacing="0">
+
+                        <Border
+                            Margin="0,0,0,10"
+                            Padding="16"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                            BackgroundColor="{Binding IsSelected, Converter={StaticResource SelectionBackgroundConverter}}"
+                            StrokeShape="RoundRectangle 18"
+                            IsVisible="{Binding ShowSimpleSelection}">
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleSelectionCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label
+                                    Text="{Binding Label}"
+                                    FontSize="16"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="✓"
+                                    FontSize="18"
+                                    FontAttributes="Bold"
+                                    TextColor="#004D9D"
+                                    IsVisible="{Binding IsSelected}" />
+                            </Grid>
+                        </Border>
+
+                        <Border
+                            Margin="0,0,0,12"
+                            Padding="16"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                            StrokeShape="RoundRectangle 18"
+                            IsVisible="{Binding ShowPrintDigital}">
+
+                            <VerticalStackLayout Spacing="14">
+                                <Label
+                                    Text="{Binding Label}"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="10">
+
+                                    <Button
+                                        Text="Print"
+                                        HeightRequest="46"
+                                        CornerRadius="14"
+                                        BackgroundColor="{Binding Print, Converter={StaticResource SelectionBackgroundConverter}}"
+                                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.TogglePrintCommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Text="Digital"
+                                        HeightRequest="46"
+                                        CornerRadius="14"
+                                        BackgroundColor="{Binding Digital, Converter={StaticResource SelectionBackgroundConverter}}"
+                                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ToggleDigitalCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Entweder-oder: genau eine von zwei Optionen -->
+                        <Border
+                            Margin="0,0,0,12"
+                            Padding="16"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                            StrokeShape="RoundRectangle 18"
+                            IsVisible="{Binding ShowEitherOr}">
+
+                            <VerticalStackLayout Spacing="14">
+                                <Label
+                                    Text="{Binding Label}"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="10">
+
+                                    <Button
+                                        Text="{Binding OptionA}"
+                                        HeightRequest="46"
+                                        CornerRadius="14"
+                                        BackgroundColor="{Binding OptionAChosen, Converter={StaticResource SelectionBackgroundConverter}}"
+                                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ChooseOptionACommand}"
+                                        CommandParameter="{Binding .}" />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Text="{Binding OptionB}"
+                                        HeightRequest="46"
+                                        CornerRadius="14"
+                                        BackgroundColor="{Binding OptionBChosen, Converter={StaticResource SelectionBackgroundConverter}}"
+                                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ChooseOptionBCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <!-- Textfeld (mehrzeilig) -->
+                        <Border
+                            Margin="0,0,0,12"
+                            Padding="16"
+                            StrokeThickness="1"
+                            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                            StrokeShape="RoundRectangle 18"
+                            IsVisible="{Binding ShowText}">
+
+                            <VerticalStackLayout Spacing="10">
+                                <Label
+                                    Text="{Binding Label}"
+                                    FontSize="17"
+                                    FontAttributes="Bold"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                                <Editor
+                                    Text="{Binding TextValue}"
+                                    AutoSize="TextChanges"
+                                    MinimumHeightRequest="90"
+                                    Placeholder="{Binding Label}"
+                                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                                    PlaceholderColor="{AppThemeBinding Light=#6F7A74, Dark=#9DAAA4}"
+                                    BackgroundColor="Transparent" />
+                            </VerticalStackLayout>
+                        </Border>
+
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+
+        </VerticalStackLayout>
+
+        <Border
+            Padding="14,12"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#BFCBC5, Dark=#61706A}"
+            BackgroundColor="{AppThemeBinding Light=#F6FAF8, Dark=#17211E}"
+            StrokeShape="RoundRectangle 16"
+            IsVisible="{Binding ShowFollowUpNotes}">
+
+            <Editor
+                Placeholder="Notiz zur Folgeaktion"
+                AutoSize="TextChanges"
+                MinimumHeightRequest="120"
+                Text="{Binding FollowUpNotes}"
+                TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                PlaceholderColor="{AppThemeBinding Light=#6F7A74, Dark=#9DAAA4}"
+                BackgroundColor="Transparent" />
+        </Border>
+
+    </VerticalStackLayout>
+</ContentView>

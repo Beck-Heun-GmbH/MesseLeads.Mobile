@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.DraftsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MesseLeads.Mobile.ViewModels"
+    xmlns:models="clr-namespace:MesseLeads.Mobile.Models"
+    xmlns:controls="clr-namespace:MesseLeads.Mobile.Controls"
+    x:Name="Page"
+    x:DataType="viewModels:DraftsViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <Grid>
+        <VerticalStackLayout Padding="{OnIdiom Phone='24,26,24,34', Tablet='48,38,48,44', Desktop='56,42,56,48'}" Spacing="18">
+
+            <controls:AppHeaderView
+                Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
+                Greeting="Entwürfe"
+                Subtitle="MesseLeads"
+                ShowBackButton="True"
+                ShowMenuButton="True"
+                HomeEnabled="True" />
+
+            <Label Text="Noch nicht übertragene Leads auf diesem Gerät. Fertige Leads findest du im Verlauf."
+                   FontSize="15"
+                   TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+            <CollectionView ItemsSource="{Binding Drafts}" IsVisible="{Binding HasDrafts}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:DraftListItem">
+                        <Border Padding="18" Margin="0,0,0,14" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 24">
+                            <VerticalStackLayout Spacing="10">
+                                <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                                <Label Text="{Binding Subtitle}" FontSize="14" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding StatusText}" FontAttributes="Bold" TextColor="#004D9D" />
+                                        <Label Text="{Binding UpdatedText}" FontSize="12" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                                    </VerticalStackLayout>
+
+                                    <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                                        <Button Text="Öffnen"
+                                                HeightRequest="46"
+                                                Command="{Binding Source={x:Reference Page}, Path=BindingContext.OpenCommand}"
+                                                CommandParameter="{Binding .}" />
+
+                                        <Button Text="Löschen"
+                                                HeightRequest="46"
+                                                BackgroundColor="#CD1719"
+                                                TextColor="White"
+                                                Command="{Binding Source={x:Reference Page}, Path=BindingContext.DeleteCommand}"
+                                                CommandParameter="{Binding .}" />
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border Padding="24"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                    StrokeShape="RoundRectangle 24"
+                    IsVisible="{Binding HasDrafts, Converter={StaticResource InvertedBoolConverter}}">
+                <Label Text="{Binding EmptyText}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+            </Border>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

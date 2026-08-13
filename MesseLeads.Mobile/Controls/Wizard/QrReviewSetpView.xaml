@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.QrReviewStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        Padding="24"
+        MinimumHeightRequest="500"
+        StrokeThickness="1"
+        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+        StrokeShape="RoundRectangle 24">
+
+        <VerticalStackLayout Spacing="20">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                <Border
+                    WidthRequest="42"
+                    HeightRequest="42"
+                    StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}"
+                    StrokeShape="RoundRectangle 14">
+                    <Label
+                        Text="✓"
+                        FontSize="23"
+                        FontAttributes="Bold"
+                        TextColor="#2F7D32"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Border>
+
+                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                    <Label
+                        Text="QR-Code erfolgreich gelesen"
+                        FontSize="19"
+                        FontAttributes="Bold"
+                        TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label
+                        Text="Prüfe die übernommenen Daten. Im nächsten Schritt kannst du sie ändern."
+                        FontSize="13"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <BoxView
+                HeightRequest="1"
+                BackgroundColor="{AppThemeBinding Light=#E4E9E6, Dark=#39433F}" />
+
+            <Grid
+                RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                ColumnDefinitions="{OnIdiom Phone='110,*', Tablet='160,*', Desktop='160,*'}"
+                RowSpacing="15"
+                ColumnSpacing="12">
+
+                <Label Grid.Row="0" Text="Vorname" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding FirstName, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="1" Text="Nachname" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding LastName, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="2" Text="Firma" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Company, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="3" Text="Position" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="3" Grid.Column="1" Text="{Binding JobTitle, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="4" Text="E-Mail" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="{Binding Email, TargetNullValue='–'}" LineBreakMode="CharacterWrap" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="5" Text="Telefon" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="5" Grid.Column="1" Text="{Binding Phone, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="6" Text="Mobil" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="6" Grid.Column="1" Text="{Binding Mobile, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="7" Text="Webseite" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <Label Grid.Row="7" Grid.Column="1" Text="{Binding Website, TargetNullValue='–'}" LineBreakMode="CharacterWrap" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label Grid.Row="8" Text="Adresse" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                <VerticalStackLayout Grid.Row="8" Grid.Column="1" Spacing="2">
+                    <Label Text="{Binding Street, TargetNullValue='–'}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding ZipCode}" />
+                                <Span Text=" " />
+                                <Span Text="{Binding City}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding Country}" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Button
+                Text="Anderen QR-Code scannen"
+                Command="{Binding RestartQrScanCommand}"
+                BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}" />
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

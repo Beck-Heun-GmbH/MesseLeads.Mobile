@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.AnalyzeStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <VerticalStackLayout Spacing="16">
+
+        <Border
+            Padding="20"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+            StrokeShape="RoundRectangle 24">
+
+            <VerticalStackLayout Spacing="16">
+
+                <Label
+                    Text="Lokale Analyse"
+                    FontSize="21"
+                    FontAttributes="Bold" />
+
+                <Label
+                    Text="Das Foto wird lokal mit Apple Vision gelesen und anschließend durch Qwen über llama.cpp strukturiert."
+                    FontSize="14"
+                    TextColor="{AppThemeBinding Light=#53615B, Dark=#B8C4BF}" />
+
+                <Label
+                    Text="{Binding AiStatusText}"
+                    FontAttributes="Bold" />
+
+                <Button
+                    Text="Foto lokal analysieren"
+                    Command="{Binding AnalyzeBusinessCardPhotoCommand}" />
+
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="Erkannter OCR-Text"
+                        FontAttributes="Bold" />
+
+                    <Border
+                        Padding="12"
+                        MinimumHeightRequest="150"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#F7FAF8, Dark=#16201D}"
+                        StrokeShape="RoundRectangle 14">
+
+                        <Label
+                            Text="{Binding OcrRawText}"
+                            FontSize="13"
+                            LineBreakMode="WordWrap" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button
+                    Text="Felder erneut zuordnen"
+                    Command="{Binding RunLocalAiCommand}"
+                    BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                    TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                    BorderColor="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BorderWidth="1" />
+
+            </VerticalStackLayout>
+        </Border>
+
+        <Border
+            Padding="18"
+            StrokeThickness="1"
+            Stroke="{AppThemeBinding Light=#C8D8CF, Dark=#42524B}"
+            BackgroundColor="{AppThemeBinding Light=#F4F9F6, Dark=#17211E}"
+            StrokeShape="RoundRectangle 20">
+
+            <VerticalStackLayout Spacing="12">
+                <Label
+                    Text="KI-Diagnose"
+                    FontSize="19"
+                    FontAttributes="Bold" />
+
+                <Grid
+                    ColumnDefinitions="Auto,*"
+                    RowDefinitions="Auto,Auto,Auto,Auto"
+                    ColumnSpacing="12"
+                    RowSpacing="8">
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="Runtime" FontAttributes="Bold" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding AiRuntimeStatus}" LineBreakMode="WordWrap" />
+
+                    <Label Grid.Row="1" Grid.Column="0" Text="Modell" FontAttributes="Bold" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding AiModelStatus}" LineBreakMode="WordWrap" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Engine" FontAttributes="Bold" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding AiEngineText}" LineBreakMode="WordWrap" />
+
+                    <Label Grid.Row="3" Grid.Column="0" Text="Timing" FontAttributes="Bold" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding AiTimingText}" LineBreakMode="WordWrap" />
+                </Grid>
+
+                <Label
+                    Text="{Binding AiModelPath, StringFormat='Lokaler Modellpfad: {0}'}"
+                    FontSize="11"
+                    LineBreakMode="CharacterWrap"
+                    TextColor="{AppThemeBinding Light=#66736D, Dark=#AAB6B1}" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Border
+            IsVisible="{Binding HasAiError}"
+            Padding="16"
+            StrokeThickness="1"
+            Stroke="#B42318"
+            BackgroundColor="{AppThemeBinding Light=#FFF1F0, Dark=#351A18}"
+            StrokeShape="RoundRectangle 18">
+
+            <VerticalStackLayout Spacing="8">
+                <Label
+                    Text="Qwen-/Runtime-Fehler"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light=#B42318, Dark=#FFB4AB}" />
+                <Label
+                    Text="{Binding AiErrorText}"
+                    FontSize="13"
+                    LineBreakMode="WordWrap" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Border
+            IsVisible="{Binding HasAiRawResponse}"
+            Padding="16"
+            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+            StrokeShape="RoundRectangle 18">
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Qwen-Rohantwort" FontAttributes="Bold" />
+                <Label
+                    Text="{Binding AiRawResponse}"
+                    FontFamily="monospace"
+                    FontSize="12"
+                    LineBreakMode="CharacterWrap" />
+            </VerticalStackLayout>
+        </Border>
+
+        <Border
+            IsVisible="{Binding HasAiParsedJson}"
+            Padding="16"
+            Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+            BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+            StrokeShape="RoundRectangle 18">
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Validiertes JSON" FontAttributes="Bold" />
+                <Label
+                    Text="{Binding AiParsedJson}"
+                    FontFamily="monospace"
+                    FontSize="12"
+                    LineBreakMode="CharacterWrap" />
+            </VerticalStackLayout>
+        </Border>
+
+    </VerticalStackLayout>
+</ContentView>

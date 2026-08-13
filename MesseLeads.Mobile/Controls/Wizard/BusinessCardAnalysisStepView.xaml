@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.BusinessCardAnalysisStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        Padding="{OnIdiom Phone='22,28', Tablet='34,38', Desktop='34,38'}"
+        StrokeThickness="1"
+        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+        StrokeShape="RoundRectangle 24">
+
+        <VerticalStackLayout
+            Spacing="22"
+            HorizontalOptions="Fill"
+            VerticalOptions="Center">
+
+            <Grid
+                WidthRequest="104"
+                HeightRequest="104"
+                HorizontalOptions="Center">
+
+                <Ellipse
+                    Fill="{AppThemeBinding Light=#EEF6F1, Dark=#24322D}"
+                    Stroke="{AppThemeBinding Light=#D6E5DC, Dark=#3E514A}"
+                    StrokeThickness="1" />
+
+                <ActivityIndicator
+                    WidthRequest="58"
+                    HeightRequest="58"
+                    Color="#004D9D"
+                    IsRunning="{Binding IsAnalyzingBusinessCard}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <VerticalStackLayout
+                Spacing="8"
+                HorizontalOptions="Fill">
+
+                <Label
+                    Text="Foto wird ausgelesen"
+                    FontSize="{OnIdiom Phone=24, Tablet=30, Desktop=30}"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Label
+                    Text="Apple Vision erkennt den Text. Anschließend ordnet Qwen die Daten den Kontaktfeldern zu."
+                    FontSize="15"
+                    LineBreakMode="WordWrap"
+                    HorizontalTextAlignment="Center"
+                    TextColor="{AppThemeBinding Light=#5F6D67, Dark=#B9C5BF}" />
+            </VerticalStackLayout>
+
+            <Border
+                Padding="14,12"
+                StrokeThickness="1"
+                Stroke="{AppThemeBinding Light=#D8E4DD, Dark=#41524B}"
+                BackgroundColor="{AppThemeBinding Light=#F6FAF8, Dark=#17211E}"
+                StrokeShape="RoundRectangle 16">
+
+                <Label
+                    Text="{Binding AiStatusText}"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    HorizontalTextAlignment="Center"
+                    LineBreakMode="WordWrap"
+                    TextColor="{AppThemeBinding Light=#004D9D, Dark=#8BBEFF}" />
+            </Border>
+
+            <Label
+                Text="Du wirst automatisch zu den Kontaktdaten weitergeleitet."
+                FontSize="13"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light=#7A8781, Dark=#A8B4AF}" />
+
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

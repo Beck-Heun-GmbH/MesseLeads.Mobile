@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.QrScanStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+    Loaded="OnLoaded"
+    Unloaded="OnUnloaded">
+
+    <Border
+        Padding="20"
+        StrokeThickness="1"
+        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+        StrokeShape="RoundRectangle 24">
+
+        <VerticalStackLayout Spacing="16">
+            <Label
+                Text="QR-Code scannen"
+                FontSize="21"
+                FontAttributes="Bold"
+                TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+            <Label
+                Text="{Binding QrStatusText}"
+                FontSize="14"
+                TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+            <Border
+                HeightRequest="{OnIdiom Phone=310, Tablet=430, Desktop=430}"
+                StrokeThickness="1"
+                Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                BackgroundColor="#101010"
+                StrokeShape="RoundRectangle 24">
+
+                <Grid>
+                    <zxing:CameraBarcodeReaderView
+                        x:Name="CameraView"
+                        IsDetecting="{Binding IsQrScannerActive}"
+                        BarcodesDetected="OnBarcodesDetected" />
+
+                    <Grid
+                        InputTransparent="True"
+                        Padding="34">
+                        <Border
+                            WidthRequest="{OnIdiom Phone=225, Tablet=300, Desktop=300}"
+                            HeightRequest="{OnIdiom Phone=225, Tablet=300, Desktop=300}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Stroke="#FFFFFF"
+                            StrokeThickness="3"
+                            BackgroundColor="#00000000"
+                            StrokeShape="RoundRectangle 24" />
+                    </Grid>
+
+                    <Border
+                        VerticalOptions="End"
+                        Margin="14"
+                        Padding="12,8"
+                        StrokeThickness="0"
+                        BackgroundColor="#B0000000"
+                        StrokeShape="RoundRectangle 14">
+                        <Label
+                            Text="QR-Code ruhig und vollständig in den Rahmen halten"
+                            FontSize="13"
+                            TextColor="White"
+                            HorizontalTextAlignment="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Label
+                Text="Die Verarbeitung erfolgt direkt auf dem Gerät."
+                FontSize="13"
+                TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}"
+                HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

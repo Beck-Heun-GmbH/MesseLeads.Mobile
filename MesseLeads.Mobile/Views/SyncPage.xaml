@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.SyncPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MesseLeads.Mobile.ViewModels"
+    xmlns:controls="clr-namespace:MesseLeads.Mobile.Controls"
+    x:DataType="viewModels:SyncViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="{OnIdiom Phone='24,26,24,34', Tablet='48,38,48,44', Desktop='56,42,56,48'}" Spacing="22">
+
+            <controls:AppHeaderView
+                Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
+                Greeting="Synchronisation"
+                Subtitle="MesseLeads"
+                ShowBackButton="True"
+                ShowMenuButton="True"
+                HomeEnabled="True" />
+
+            <Border Padding="22" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 24">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                    <Border WidthRequest="58" HeightRequest="58" StrokeThickness="0" BackgroundColor="{AppThemeBinding Light=#EBF5EC, Dark=#24402E}" StrokeShape="RoundRectangle 18">
+                        <Label Text="↻" FontSize="32" FontAttributes="Bold" TextColor="#004D9D" HorizontalOptions="Center" VerticalOptions="Center" />
+                    </Border>
+
+                    <VerticalStackLayout Grid.Column="1" Spacing="6" VerticalOptions="Center">
+                        <Label Text="Offene Uploads" FontSize="20" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                        <Label Text="{Binding PendingText}" FontSize="15" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Button Text="Jetzt synchronisieren" Command="{Binding SyncCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="#004D9D" />
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 20">
+                <Label Text="{Binding ResultText}" FontSize="15" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+            </Border>
+
+            <VerticalStackLayout Spacing="10">
+                <Label
+                    Text="Verlauf"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+                <Border
+                    Padding="16"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+                    StrokeShape="RoundRectangle 20"
+                    IsVisible="{Binding HasNoHistory}">
+
+                    <Label
+                        Text="Noch keine Synchronisationen durchgeführt."
+                        FontSize="14"
+                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </Border>
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    IsVisible="{Binding HasHistory}"
+                    BindableLayout.ItemsSource="{Binding History}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:SyncHistoryListItem">
+                            <Border
+                                Padding="16"
+                                StrokeThickness="1"
+                                Stroke="{Binding AccentColor}"
+                                BackgroundColor="{Binding BackgroundColor}"
+                                StrokeShape="RoundRectangle 18">
+
+                                <VerticalStackLayout Spacing="6">
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                        <Label
+                                            Text="{Binding StatusText}"
+                                            FontSize="16"
+                                            FontAttributes="Bold"
+                                            TextColor="{Binding AccentColor}" />
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding TriggerText}"
+                                            FontSize="12"
+                                            FontAttributes="Bold"
+                                            TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                                    </Grid>
+
+                                    <Label
+                                        Text="{Binding TimeText}"
+                                        FontSize="13"
+                                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                                    <Label
+                                        Text="{Binding DetailText}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}" />
+
+                                    <Label
+                                        Text="{Binding Message}"
+                                        FontSize="13"
+                                        LineBreakMode="WordWrap"
+                                        TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

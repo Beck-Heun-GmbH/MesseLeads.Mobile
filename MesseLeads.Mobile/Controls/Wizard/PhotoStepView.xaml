@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MesseLeads.Mobile.Controls.Wizard.PhotoStepView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Border
+        Padding="20"
+        StrokeThickness="1"
+        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+        BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}"
+        StrokeShape="RoundRectangle 24">
+
+        <VerticalStackLayout Spacing="16">
+
+            <Label
+                Text="Visitenkarte"
+                FontSize="21"
+                FontAttributes="Bold"
+                TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+
+            <Label
+                Text="{Binding ImageStatusText}"
+                FontSize="15"
+                TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+            <Button
+                Text="📷  Kamera öffnen"
+                IsVisible="{Binding ShowCameraPhotoAction}"
+                Command="{Binding TakeBusinessCardPhotoCommand}" />
+
+            <Button
+                Text="🖼  Bild aus Galerie auswählen"
+                IsVisible="{Binding ShowGalleryPhotoAction}"
+                BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                Command="{Binding PickBusinessCardPhotoCommand}" />
+
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

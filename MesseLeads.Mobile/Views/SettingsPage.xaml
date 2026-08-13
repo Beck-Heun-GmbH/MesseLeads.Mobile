@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MesseLeads.Mobile.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MesseLeads.Mobile.ViewModels"
+    xmlns:models="clr-namespace:MesseLeads.Mobile.Models"
+    xmlns:controls="clr-namespace:MesseLeads.Mobile.Controls"
+    x:DataType="viewModels:SettingsViewModel"
+    Shell.NavBarIsVisible="False"
+    BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="{OnIdiom Phone='24,26,24,34', Tablet='48,38,48,44', Desktop='56,42,56,48'}" Spacing="18">
+
+            <controls:AppHeaderView
+                Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
+                Greeting="Einstellungen"
+                Subtitle="{Binding CurrentTradeFairText, StringFormat='MesseLeads · {0}'}"
+                ShowBackButton="True"
+                ShowMenuButton="True"
+                HomeEnabled="True" />
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 22">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Benutzer" FontAttributes="Bold" FontSize="17" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label Text="{Binding DisplayName}" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 22">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Server" FontAttributes="Bold" FontSize="17" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label Text="{Binding ServerUrl}" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 22">
+                <VerticalStackLayout Spacing="12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Aktive Messe" FontAttributes="Bold" FontSize="19" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                        <Label Text="{Binding CurrentTradeFairText}" FontSize="15" TextColor="#004D9D" />
+                        <Label Text="{Binding TradeFairStatusText}" FontSize="13" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                    </VerticalStackLayout>
+
+                    <Border
+                        Padding="12,0"
+                        HeightRequest="54"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}"
+                        BackgroundColor="{AppThemeBinding Light=#F8FAF9, Dark=#101614}"
+                        StrokeShape="RoundRectangle 14"
+                        IsVisible="{Binding HasTradeFairs}">
+
+                        <Picker
+                            ItemsSource="{Binding TradeFairs}"
+                            ItemDisplayBinding="{Binding DisplayName}"
+                            SelectedItem="{Binding SelectedTradeFair, Mode=TwoWay}"
+                            TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                            Title="Messe auswählen" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Button
+                            Text="Aktualisieren"
+                            BackgroundColor="{AppThemeBinding Light=#EEF1EF, Dark=#26312D}"
+                            TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}"
+                            Command="{Binding RefreshTradeFairsCommand}" />
+
+                        <Button
+                            Grid.Column="1"
+                            Text="Messe speichern"
+                            Command="{Binding SaveTradeFairCommand}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 22">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Version" FontAttributes="Bold" FontSize="17" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label Text="{Binding AppVersion}" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="18" StrokeThickness="1" Stroke="{AppThemeBinding Light=#DCE4DF, Dark=#46524D}" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1C2522}" StrokeShape="RoundRectangle 22">
+                <VerticalStackLayout Spacing="14">
+                    <Label Text="Stammdaten" FontAttributes="Bold" FontSize="19" TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}" />
+                    <Label Text="{Binding LookupStatusText}" TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+
+                    <Button Text="Stammdaten herunterladen" Command="{Binding DownloadLookupsCommand}" />
+
+                    <Border
+                        Padding="12"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light=#E2E9E5, Dark=#3B4742}"
+                        BackgroundColor="{AppThemeBinding Light=#F8FAF9, Dark=#17211E}"
+                        StrokeShape="RoundRectangle 14"
+                        IsVisible="{Binding HasNoLookupGroups}">
+
+                        <Label
+                            Text="Noch keine Stammdaten auf diesem Gerät."
+                            FontSize="13"
+                            TextColor="{AppThemeBinding Light=#69756E, Dark=#B9C5BF}" />
+                    </Border>
+
+                    <VerticalStackLayout
+                        Spacing="0"
+                        IsVisible="{Binding HasLookupGroups}"
+                        BindableLayout.ItemsSource="{Binding LookupGroups}">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:LookupGroupSummary">
+                                <Grid Padding="0,8" ColumnDefinitions="*,Auto">
+                                    <Label Text="{Binding Group}" TextColor="{AppThemeBinding Light=#394348, Dark=#FFFFFF}" />
+                                    <Label Grid.Column="1" Text="{Binding Count}" FontAttributes="Bold" TextColor="#004D9D" />
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Abmelden" BackgroundColor="#CD1719" TextColor="White" Command="{Binding LogoutCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
