@@ -6,30 +6,70 @@ public sealed class LocalLlmModelService
 {
     private readonly SemaphoreSlim _installLock = new(1, 1);
 
+    /// <summary>
+    /// Pfad, unter dem das Modell zur Laufzeit gelesen wird.
+    /// </summary>
+    /// <remarks>
+    /// Auf iOS liegt das GGUF als echte Datei im App-Bundle.
+    /// llama.cpp braucht nur einen Dateipfad, also wird direkt aus dem Bundle
+    /// gelesen. Eine Kopie ins Datenverzeichnis wuerde die 1,12 GB ein zweites
+    /// Mal belegen (~2,24 GB auf dem Geraet) und als wiederherstellbare Datei
+    /// zusaetzlich in das iCloud-Backup wandern, was Apples Data Storage
+    /// Guidelines widerspricht.
+    ///
+    /// Auf Android steckt das Asset komprimiert im APK und ist kein regulaerer
+    /// Dateipfad; dort und auf Mac Catalyst (abweichendes Bundle-Layout)
+    /// bleibt das Entpacken ins Datenverzeichnis notwendig.
+    /// </remarks>
     public string GetInstalledModelPath()
     {
+        var bundlePath = TryGetBundleModelPath();
+        if (bundlePath is not null)
+        {
+            return bundlePath;
+        }
+
         var directory = Path.Combine(FileSystem.AppDataDirectory, "llm-models");
         return Path.Combine(directory, LocalLlmOptions.ModelFileName);
     }
 
-    public async Task<LocalLlmModelState> GetStateAsync(
+    /// <summary>
+    /// Liefert den Bundle-Pfad, sofern die Plattform das Asset als lesbare
+    /// Datei ablegt, sonst <c>null</c>.
+    /// </summary>
+    private static string? TryGetBundleModelPath()
+    {
+#if IOS
+        var candidate = Path.Combine(
+            AppContext.BaseDirectory,
+            LocalLlmOptions.PackagedModelPath.Replace('/', Path.DirectorySeparatorChar));
+
+        return File.Exists(candidate) ? candidate : null;
+#else
+        return null;
+#endif
+    }
+
+    public Task<LocalLlmModelState> GetStateAsync(
         CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         var path = GetInstalledModelPath();
 
         if (!File.Exists(path))
         {
-            return new LocalLlmModelState
+            return Task.FromResult(new LocalLlmModelState
             {
                 IsInstalled = false,
                 ModelPath = path,
                 StatusText = "Qwen-Modell ist noch nicht lokal installiert."
-            };
+            });
         }
 
         var fileInfo = new FileInfo(path);
 
-        return new LocalLlmModelState
+        return Task.FromResult(new LocalLlmModelState
         {
             IsInstalled = fileInfo.Length > 0,
             ModelPath = path,
@@ -37,7 +77,7 @@ public sealed class LocalLlmModelService
             StatusText = fileInfo.Length > 0
                 ? $"Qwen-Modell ist lokal installiert ({FormatBytes(fileInfo.Length)})."
                 : "Die lokale Modelldatei ist leer."
-        };
+        });
     }
 
     public async Task<LocalLlmModelState> EnsureInstalledFromAppPackageAsync(

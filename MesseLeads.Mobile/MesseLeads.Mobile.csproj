@@ -28,7 +28,7 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>MesseLeads.Mobile</ApplicationTitle>
+		<ApplicationTitle>MesseLeads</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>de.beckheun.messeleads.mobile</ApplicationId>
@@ -40,7 +40,10 @@
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+		<!-- 16.4, weil das mitgelieferte llama.xcframework selbst MinimumOSVersion
+		     16.4 deklariert. Niedriger gesetzt scheitert dyld beim Start und App
+		     Store Connect beanstandet die Diskrepanz. -->
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">16.4</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
@@ -49,7 +52,24 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
 	  <ProvisioningType>manual</ProvisioningType>
+	  <!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
+	       llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
+	       Speicherverhalten beim Testen dem Release entspricht. -->
+	  <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
+
+	<!-- App-Store-Build auf dem Mac-Buildhost. Signaturdaten werden absichtlich
+	     nicht im Repository gehalten, sondern beim Publish uebergeben:
+	
+	       dotnet publish MesseLeads.Mobile.csproj -f net10.0-ios -c Release
+	         -p:RuntimeIdentifier=ios-arm64
+	         -p:CodesignKey="Apple Distribution: <Name> (D2B9G6QAYH)"
+	         -p:CodesignProvision="MesseLeads AppStore"
+	
+	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning".
+	     Ergebnis ist ein .ipa unter bin/Release/net10.0-ios/ios-arm64/publish/.
+	     Zusaetzlich -p:ArchiveOnBuild=true erzeugt ein .xcarchive, falls der Upload
+	     lieber ueber den Xcode Organizer laufen soll. -->
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Debug'">
 	  <MtouchInterpreter>all</MtouchInterpreter>

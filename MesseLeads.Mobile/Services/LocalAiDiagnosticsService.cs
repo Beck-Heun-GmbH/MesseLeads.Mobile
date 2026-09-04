@@ -31,7 +31,7 @@ public sealed class LocalAiDiagnosticsService
         var modelStatus = modelState.IsInstalled
             ? modelState.StatusText
             : packagedModelFound
-                ? "Qwen-Modell ist im App-Paket vorhanden und wird beim ersten Lauf lokal kopiert."
+                ? "Qwen-Modell ist im App-Paket vorhanden und wird beim ersten Lauf bereitgestellt."
                 : $"Qwen-Modell ist weder lokal installiert noch im App-Paket unter '{LocalLlmOptions.PackagedModelPath}' gefunden.";
 
         return new LocalAiDiagnosticsSnapshot

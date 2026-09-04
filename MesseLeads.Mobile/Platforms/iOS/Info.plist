@@ -30,6 +30,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<!-- Export-Compliance: die App nutzt ausschliesslich HTTPS/TLS des Systems
+	     und ist damit von der Exportbeschraenkung ausgenommen. Spart die
+	     Compliance-Rueckfrage bei jedem Upload nach App Store Connect. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
 </dict>

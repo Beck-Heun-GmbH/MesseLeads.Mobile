@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+    Entitlements fuer MesseLeads.Mobile (iOS).
+
+    Beide Eintraege sind fuer die lokale llama.cpp-Inferenz notwendig: das
+    Qwen-1.5B-Modell in Q4_K_M belegt zur Laufzeit rund 1,2 GB. Ohne erhoehtes
+    Speicherlimit beendet iOS (Jetsam) die App auf Geraeten mit 3 GB RAM.
+
+    WICHTIG: "Increased Memory Limit" muss zusaetzlich in der App ID im
+    Apple Developer Portal aktiviert werden (Certificates, Identifiers &
+    Profiles > Identifiers > de.beckheun.messeleads.mobile > Capabilities).
+    Danach das Provisioning Profile neu erzeugen, sonst schlaegt die Signatur
+    mit "provisioning profile doesn't include entitlement" fehl.
+-->
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.kernel.increased-memory-limit</key>
+	<true/>
+	<key>com.apple.developer.kernel.extended-virtual-addressing</key>
+	<true/>
+</dict>
+</plist>
