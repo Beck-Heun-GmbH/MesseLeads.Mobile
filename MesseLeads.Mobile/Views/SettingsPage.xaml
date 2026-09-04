@@ -16,7 +16,7 @@
             <controls:AppHeaderView
                 Margin="{OnIdiom Phone='-24,-26,-24,4', Tablet='-48,-38,-48,8', Desktop='-56,-42,-56,8'}"
                 Greeting="Einstellungen"
-                Subtitle="{Binding CurrentTradeFairText, StringFormat='MesseLeads · {0}'}"
+                Subtitle="{Binding CurrentTradeFairText, StringFormat='FoxyLeads · {0}'}"
                 ShowBackButton="True"
                 ShowMenuButton="True"
                 HomeEnabled="True" />

@@ -10,9 +10,9 @@
 		<integer>2</integer>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>MesseLeads benötigt die Kamera, um Visitenkarten zu fotografieren und Kontakt-QR-Codes zu scannen.</string>
+	<string>FoxyLeads benötigt die Kamera, um Visitenkarten zu fotografieren und Kontakt-QR-Codes zu scannen.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>MesseLeads benötigt Zugriff auf Fotos, um Visitenkartenbilder auszuwählen.</string>
+	<string>FoxyLeads benötigt Zugriff auf Fotos, um Visitenkartenbilder auszuwählen.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>

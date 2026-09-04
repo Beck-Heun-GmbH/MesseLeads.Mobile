@@ -64,7 +64,7 @@ public partial class LeadWizardViewModel : BaseViewModel
     [ObservableProperty] private bool isDownloadingLookups;
     [ObservableProperty] private string lookupDownloadText =
         "Es sind noch keine Stammdaten auf dem Gerät. Lade sie jetzt herunter, um diese Auswahl zu füllen.";
-    [ObservableProperty] private string tradeFairHeaderText = "MesseLeads";
+    [ObservableProperty] private string tradeFairHeaderText = "FoxyLeads";
 
     [ObservableProperty] private string? firstName;
     [ObservableProperty] private string? lastName;
@@ -1268,8 +1268,8 @@ public partial class LeadWizardViewModel : BaseViewModel
         Notes = Lead.Notes;
         FollowUpNotes = Lead.FollowUpNotes;
         TradeFairHeaderText = string.IsNullOrWhiteSpace(Lead.TradeFair)
-            ? "MesseLeads"
-            : $"MesseLeads · {Lead.TradeFair}";
+            ? "FoxyLeads"
+            : $"FoxyLeads · {Lead.TradeFair}";
     }
 
     private async Task LoadLookupItemsAsync()

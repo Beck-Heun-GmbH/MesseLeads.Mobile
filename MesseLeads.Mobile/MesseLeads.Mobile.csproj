@@ -28,7 +28,7 @@
 		<MauiXamlInflator>SourceGen</MauiXamlInflator>
 
 		<!-- Display name -->
-		<ApplicationTitle>MesseLeads</ApplicationTitle>
+		<ApplicationTitle>FoxyLeads</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>de.beckheun.messeleads.mobile</ApplicationId>

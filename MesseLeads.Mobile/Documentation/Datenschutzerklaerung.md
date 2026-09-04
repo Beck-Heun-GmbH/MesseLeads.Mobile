@@ -1,4 +1,4 @@
-# Datenschutzerklärung – MesseLeads
+# Datenschutzerklärung – FoxyLeads
 
 > **Vor Veröffentlichung ausfüllen.** Alle mit `[...]` markierten Stellen enthalten
 > Angaben, die aus dem Quellcode nicht ableitbar sind: vollständige Firmenanschrift,
@@ -6,7 +6,7 @@
 > zuständigen Aufsichtsbehörde. Bitte vor dem Hosten juristisch prüfen lassen –
 > dieser Text ist eine fachlich vorbereitete Vorlage, keine Rechtsberatung.
 
-**Stand:** [Datum eintragen] · **App:** MesseLeads (iOS/iPadOS) · **App-ID:** `de.beckheun.messeleads.mobile`
+**Stand:** [Datum eintragen] · **App:** FoxyLeads (iOS/iPadOS) · **App-ID:** `de.beckheun.messeleads.mobile`
 
 ---
 
@@ -32,7 +32,7 @@ bestimmt. Eine Registrierung durch Dritte ist nicht möglich; Zugangsdaten werde
 ausschließlich durch die Beck+Heun GmbH vergeben.
 
 Die App dient der Erfassung von Geschäftskontakten („“) auf Messen und
-Veranstaltungen sowie deren Übertragung in das interne MesseLeads-System.
+Veranstaltungen sowie deren Übertragung in das interne FoxyLeads-System.
 
 ## 3. Kategorien verarbeiteter Daten
 
@@ -65,7 +65,7 @@ QR-Code bzw. einer vCard übernommen oder aus einem Visitenkartenfoto ausgelesen
 
 Wird ein Visitenkartenfoto aufgenommen oder aus der Fotobibliothek ausgewählt,
 speichert die App das Bild zunächst lokal auf dem Gerät und überträgt es anschließend
-zusammen mit dem Lead an das MesseLeads-System.
+zusammen mit dem Lead an das FoxyLeads-System.
 
 ### 3.4 Keine Nutzungsanalyse
 
@@ -120,7 +120,7 @@ Je nach Konfiguration des Geräts können lokal gespeicherte App-Daten in die
 Gerätesicherung des Betriebssystems einbezogen werden. [Diesen Absatz an die tatsächliche
 Backup-Konfiguration und die betrieblichen Vorgaben zur MDM-Verwaltung anpassen.]
 
-**Übertragung:** Die Übertragung an das MesseLeads-System der Beck+Heun GmbH erfolgt
+**Übertragung:** Die Übertragung an das FoxyLeads-System der Beck+Heun GmbH erfolgt
 ausschließlich über eine mit TLS verschlüsselte Verbindung (TLS 1.2 mit Forward Secrecy).
 Der Server wird [im Rechenzentrum … / in den eigenen Räumlichkeiten der Beck+Heun GmbH]
 in Deutschland betrieben.
@@ -147,8 +147,8 @@ Europäischen Union oder des Europäischen Wirtschaftsraums findet nicht statt.
 ## 10. Speicherdauer
 
 - Lokale Daten auf dem Gerät werden nach erfolgreicher Übertragung an das
-  MesseLeads-System [Frist eintragen] gelöscht.
-- Im MesseLeads-System werden Lead-Daten für [Frist eintragen] gespeichert und
+  FoxyLeads-System [Frist eintragen] gelöscht.
+- Im FoxyLeads-System werden Lead-Daten für [Frist eintragen] gespeichert und
   anschließend gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten oder eine
   fortbestehende Geschäftsbeziehung entgegenstehen.
 - Sitzungsmerkmale werden mit dem Abmelden bzw. mit Ablauf der Sitzung gelöscht.

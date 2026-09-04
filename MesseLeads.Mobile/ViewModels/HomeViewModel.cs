@@ -32,7 +32,7 @@ public partial class HomeViewModel : BaseViewModel
     private string syncButtonText = "Synchronisieren";
 
     [ObservableProperty]
-    private string tradeFairHeaderText = "MesseLeads · Messe auswählen";
+    private string tradeFairHeaderText = "FoxyLeads · Messe auswählen";
 
     [ObservableProperty]
     private bool showSaveBanner;
@@ -66,7 +66,7 @@ public partial class HomeViewModel : BaseViewModel
         _leadSyncService = leadSyncService;
         _authSessionService = authSessionService;
         _tradeFairSelectionService = tradeFairSelectionService;
-        Title = "MesseLeads";
+        Title = "FoxyLeads";
         LeadSaveNotificationState.Published += OnSaveNotificationPublished;
     }
 
@@ -74,7 +74,7 @@ public partial class HomeViewModel : BaseViewModel
     {
         DisplayName = await _authSessionService.GetDisplayNameAsync();
         var tradeFair = await _tradeFairSelectionService.GetSelectedLabelOrFallbackAsync();
-        TradeFairHeaderText = $"MesseLeads · {tradeFair}";
+        TradeFairHeaderText = $"FoxyLeads · {tradeFair}";
 
         var drafts = await _localLeadService.CountDraftsAsync();
         var pendingUploads = await _localLeadService.CountPendingUploadsAsync();
@@ -187,7 +187,7 @@ public partial class HomeViewModel : BaseViewModel
     private async Task OpenMenuAsync()
     {
         var action = await Shell.Current.DisplayActionSheet(
-            "MesseLeads",
+            "FoxyLeads",
             "Abbrechen",
             null,
             "Entwürfe öffnen",

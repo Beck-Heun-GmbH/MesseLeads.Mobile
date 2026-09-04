@@ -3,10 +3,10 @@
 public partial class AppHeaderView : ContentView
 {
     public static readonly BindableProperty GreetingProperty =
-        BindableProperty.Create(nameof(Greeting), typeof(string), typeof(AppHeaderView), "MesseLeads");
+        BindableProperty.Create(nameof(Greeting), typeof(string), typeof(AppHeaderView), "FoxyLeads");
 
     public static readonly BindableProperty SubtitleProperty =
-        BindableProperty.Create(nameof(Subtitle), typeof(string), typeof(AppHeaderView), "MesseLeads");
+        BindableProperty.Create(nameof(Subtitle), typeof(string), typeof(AppHeaderView), "FoxyLeads");
 
     public static readonly BindableProperty ShowBackButtonProperty =
         BindableProperty.Create(nameof(ShowBackButton), typeof(bool), typeof(AppHeaderView), false);
@@ -79,7 +79,7 @@ public partial class AppHeaderView : ContentView
     private async void OnMenuTapped(object sender, TappedEventArgs e)
     {
         var action = await Shell.Current.DisplayActionSheet(
-            "MesseLeads",
+            "FoxyLeads",
             "Abbrechen",
             null,
             "Entwürfe öffnen",

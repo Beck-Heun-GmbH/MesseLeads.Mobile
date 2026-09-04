@@ -3,7 +3,7 @@
     x:Class="MesseLeads.Mobile.Views.LoginPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="MesseLeads"
+    Title="FoxyLeads"
     BackgroundColor="{AppThemeBinding Light=#F7F9F8, Dark=#101614}">
 
     <Grid>
@@ -113,7 +113,7 @@
                         </Border>
 
                         <Label
-                            Text="MesseLeads"
+                            Text="FoxyLeads"
                             FontSize="{OnIdiom Phone=34, Tablet=42, Desktop=42}"
                             FontAttributes="Bold"
                             TextColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
