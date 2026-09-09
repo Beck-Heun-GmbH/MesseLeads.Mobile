@@ -117,6 +117,16 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
+	<!-- Das Sprachmodell wird ausschliesslich unter iOS genutzt; ILocalLlmRuntime
+	     ist per #if IOS registriert, alle anderen Plattformen erhalten
+	     UnavailableLocalLlmRuntime. Unter Windows muss es zusaetzlich aus den
+	     Assets entfernt werden: MakePRI liest die Punkte im Dateinamen
+	     "qwen2.5-1.5b-instruct-q4_k_m.gguf" als Ressourcen-Qualifizierer und
+	     bricht den Build mit "PRI249: Invalid qualifier: 5B-INSTRUCT-Q4_K_M" ab. -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<MauiAsset Remove="Resources\Raw\Models\**" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.90" />
@@ -190,8 +200,9 @@
 	     missing XCFrameworks fail the build instead of silently using fallback. -->
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<DefineConstants>$(DefineConstants);HAS_LLAMA_NATIVE</DefineConstants>
-		<CodesignKey>iPhone Developer</CodesignKey>
-		<CodesignProvision />
+		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
+		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
+		<ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
