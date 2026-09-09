@@ -58,18 +58,33 @@
 	  <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 
-	<!-- App-Store-Build auf dem Mac-Buildhost. Signaturdaten werden absichtlich
-	     nicht im Repository gehalten, sondern beim Publish uebergeben:
+	<!-- App-Store-Signatur, ausschliesslich fuer Release. Debug-Geraetebuilds
+	     brauchen ein Development-Profil; wuerden die Werte hier ohne
+	     Configuration-Bedingung stehen, scheitert jede Geraeteinstallation mit
+	     "ApplicationVerificationFailed", weil ein App-Store-Profil keine
+	     Geraeteliste enthaelt.
 	
+	     IPA erzeugen (Build laeuft ueber Pair to Mac auf dem Mac):
 	       dotnet publish MesseLeads.Mobile.csproj -f net10.0-ios -c Release
-	         -p:RuntimeIdentifier=ios-arm64
-	         -p:CodesignKey="Apple Distribution: <Name> (D2B9G6QAYH)"
-	         -p:CodesignProvision="MesseLeads AppStore"
 	
-	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning".
-	     Ergebnis ist ein .ipa unter bin/Release/net10.0-ios/ios-arm64/publish/.
-	     Zusaetzlich -p:ArchiveOnBuild=true erzeugt ein .xcarchive, falls der Upload
-	     lieber ueber den Xcode Organizer laufen soll. -->
+	     Alternativ ein .xcarchive fuer den Xcode Organizer. ArchiveOnBuild
+	     gehoert an "dotnet build", nicht an "dotnet publish":
+	       dotnet build MesseLeads.Mobile.csproj -f net10.0-ios -c Release -p:ArchiveOnBuild=true
+	
+	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning". -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Release'">
+		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
+		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
+	</PropertyGroup>
+
+	<!-- Ad-Hoc-Build zum Vorfuehren auf registrierten Geraeten. Nicht ueber die
+	     VS-Eigenschaftenseite umstellen: VS schreibt das Profil dann in eine
+	     PropertyGroup ohne Configuration-Bedingung und ueberschreibt damit still
+	     das App-Store-Profil. Stattdessen beim Aufruf uebergeben, Kommandozeilen-
+	     Properties gewinnen ohnehin gegen die Projektdatei:
+	
+	       dotnet build MesseLeads.Mobile.csproj -f net10.0-ios -c Release "-p:CodesignProvision=FoxyLeads AdHoc"
+	-->
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Debug'">
 	  <MtouchInterpreter>all</MtouchInterpreter>

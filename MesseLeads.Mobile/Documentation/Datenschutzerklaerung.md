@@ -26,12 +26,12 @@ E-Mail: [E-Mail-Adresse]
 
 ## 2. Geltungsbereich
 
-Diese Erklärung gilt für die mobile App „“ für iPhone und iPad. Die App ist
+Diese Erklärung gilt für die mobile App „FoxyLeads“ für iPhone und iPad. Die App ist
 ein internes Arbeitsmittel und ausschließlich für Beschäftigte der Beck+Heun GmbH
 bestimmt. Eine Registrierung durch Dritte ist nicht möglich; Zugangsdaten werden
 ausschließlich durch die Beck+Heun GmbH vergeben.
 
-Die App dient der Erfassung von Geschäftskontakten („“) auf Messen und
+Die App dient der Erfassung von Geschäftskontakten („Leads“) auf Messen und
 Veranstaltungen sowie deren Übertragung in das interne FoxyLeads-System.
 
 ## 3. Kategorien verarbeiteter Daten
@@ -80,7 +80,7 @@ Standortdaten werden nicht erhoben.
 | Anmeldung und Sitzungsverwaltung | Zugangskontrolle, Zuordnung erfasster Leads | Art. 6 Abs. 1 lit. b und f DSGVO; für Beschäftigtendaten § 26 Abs. 1 BDSG |
 | Erfassung von Kontaktdaten der Messekontakte | Anbahnung und Abwicklung von Geschäftsbeziehungen, Nachfassen nach der Messe | Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung auf Wunsch der betroffenen Person) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Geschäftskontaktpflege) |
 | Visitenkartenfoto und Texterkennung | vollständige und fehlerfreie Übernahme der Kontaktdaten | Art. 6 Abs. 1 lit. b bzw. f DSGVO |
-| Kennzeichen „“ | Dokumentation einer erteilten Einwilligung für Werbe-E-Mails | Art. 6 Abs. 1 lit. a DSGVO, § 7 UWG |
+| Kennzeichen „Newsletter gewünscht“ | Dokumentation einer erteilten Einwilligung für Werbe-E-Mails | Art. 6 Abs. 1 lit. a DSGVO, § 7 UWG |
 | Gerätekennung | Zuordnung von Sitzungen, Erkennung unbefugter Zugriffe | Art. 6 Abs. 1 lit. f DSGVO (Sicherheit des Systems) |
 
 Soweit die Verarbeitung auf einer Einwilligung beruht, kann diese jederzeit mit Wirkung
