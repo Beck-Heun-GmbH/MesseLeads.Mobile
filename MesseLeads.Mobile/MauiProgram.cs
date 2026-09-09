@@ -29,7 +29,11 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<HttpClient>(_ =>
         {
-#if DEBUG
+#if DEBUG && ANDROID
+            // Nur der Android-Emulator erreicht den lokalen Entwicklungsserver:
+            // 10.0.2.2 ist dort die Loopback-Adresse des Hostrechners. Das
+            // aufgeweichte Zertifikatspruefen gilt ausschliesslich hier, weil der
+            // Entwicklungsserver ein selbstsigniertes Zertifikat verwendet.
             var handler = new HttpClientHandler
             {
                 ServerCertificateCustomValidationCallback =
@@ -41,6 +45,10 @@ public static class MauiProgram
                 BaseAddress = new Uri("https://10.0.2.2:7013/")
             };
 #else
+            // iOS nutzt auch im Debug den regulaeren Server. Der iOS-Simulator
+            // laeuft ueber Pair to Mac auf dem Mac und kann einen lokalen Server
+            // auf dem Windows-Rechner ohnehin nicht erreichen. Die
+            // Zertifikatspruefung bleibt dabei aktiv.
             return new HttpClient
             {
                 BaseAddress = new Uri("https://ml.beck-heun.de:8888/")

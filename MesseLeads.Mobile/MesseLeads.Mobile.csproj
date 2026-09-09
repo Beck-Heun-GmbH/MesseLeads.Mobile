@@ -51,7 +51,6 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
-	  <ProvisioningType>manual</ProvisioningType>
 	  <!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
 	       llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
 	       Speicherverhalten beim Testen dem Release entspricht. -->
@@ -73,6 +72,7 @@
 	
 	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning". -->
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Release'">
+		<ProvisioningType>manual</ProvisioningType>
 		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
 		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
 	</PropertyGroup>
@@ -88,6 +88,11 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Debug'">
 	  <MtouchInterpreter>all</MtouchInterpreter>
+	  <!-- Debug ueberlaesst Zertifikat und Profil Visual Studio. Mit manueller
+	       Bereitstellung verlangt der Build auch fuer Simulatorziele ein Profil,
+	       und ein Development-Profil fuer dieses Team gibt es nicht. Release
+	       bleibt dagegen fest auf das App-Store-Profil gepinnt. -->
+	  <ProvisioningType>automatic</ProvisioningType>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(RunConfiguration)'=='Default'">
@@ -185,6 +190,8 @@
 	     missing XCFrameworks fail the build instead of silently using fallback. -->
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<DefineConstants>$(DefineConstants);HAS_LLAMA_NATIVE</DefineConstants>
+		<CodesignKey>iPhone Developer</CodesignKey>
+		<CodesignProvision />
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
