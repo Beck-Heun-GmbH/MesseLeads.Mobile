@@ -22,7 +22,7 @@ public partial class LoginPage : ContentPage
         _startupService = startupService;
     }
 
-    private async void OnLoginClicked(object sender, EventArgs e)
+    private async void OnLoginClicked(object? sender, EventArgs e)
     {
         ErrorLabel.IsVisible = false;
 

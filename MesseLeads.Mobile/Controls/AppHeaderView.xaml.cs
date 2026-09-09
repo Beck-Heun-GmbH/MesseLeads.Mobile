@@ -61,12 +61,12 @@ public partial class AppHeaderView : ContentView
         InitializeComponent();
     }
 
-    private async void OnBackClicked(object sender, EventArgs e)
+    private async void OnBackClicked(object? sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("..");
     }
 
-    private async void OnHomeTapped(object sender, TappedEventArgs e)
+    private async void OnHomeTapped(object? sender, TappedEventArgs e)
     {
         if (!HomeEnabled)
         {
@@ -76,9 +76,9 @@ public partial class AppHeaderView : ContentView
         await Shell.Current.GoToAsync("//home");
     }
 
-    private async void OnMenuTapped(object sender, TappedEventArgs e)
+    private async void OnMenuTapped(object? sender, TappedEventArgs e)
     {
-        var action = await Shell.Current.DisplayActionSheet(
+        var action = await Shell.Current.DisplayActionSheetAsync(
             "FoxyLeads",
             "Abbrechen",
             null,

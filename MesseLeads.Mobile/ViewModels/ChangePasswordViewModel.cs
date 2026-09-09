@@ -93,7 +93,7 @@ public partial class ChangePasswordViewModel : BaseViewModel
             NewPassword = string.Empty;
             ConfirmPassword = string.Empty;
 
-            await Shell.Current.DisplayAlert(
+            await Shell.Current.DisplayAlertAsync(
                 "Passwort gespeichert",
                 "Dein persönliches Passwort wurde erfolgreich gespeichert.",
                 "OK");

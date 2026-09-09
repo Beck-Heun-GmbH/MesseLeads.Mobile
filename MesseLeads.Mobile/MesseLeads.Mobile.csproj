@@ -50,6 +50,21 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<!-- MVVMTK0045 meldet fuer jedes [ObservableProperty]-Feld, dass der
+	     generierte Code unter WinRT nicht AOT-faehig ist und eine partielle
+	     Property zu bevorzugen waere. Das betrifft ausschliesslich UWP- und
+	     WinUI-Szenarien mit AOT. Dieses Projekt liefert iOS und Android aus,
+	     das Windows-Ziel dient der lokalen Entwicklung und ist mit
+	     WindowsPackageType=None unverpackt und ohne AOT konfiguriert.
+
+	     Die rund hundert Meldungen erschienen nur beim Bauen aller Zielplattformen
+	     und haben dort echte Warnungen verdeckt. Sollte das Windows-Ziel je
+	     ausgeliefert oder auf AOT umgestellt werden, ist die Unterdrueckung zu
+	     entfernen und auf partielle Properties umzustellen. -->
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
+	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
 	  <!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
 	       llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
@@ -117,13 +132,17 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<!-- Das Sprachmodell wird ausschliesslich unter iOS genutzt; ILocalLlmRuntime
-	     ist per #if IOS registriert, alle anderen Plattformen erhalten
-	     UnavailableLocalLlmRuntime. Unter Windows muss es zusaetzlich aus den
-	     Assets entfernt werden: MakePRI liest die Punkte im Dateinamen
-	     "qwen2.5-1.5b-instruct-q4_k_m.gguf" als Ressourcen-Qualifizierer und
-	     bricht den Build mit "PRI249: Invalid qualifier: 5B-INSTRUCT-Q4_K_M" ab. -->
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+	<!-- Das Sprachmodell wird ausschliesslich unter iOS genutzt: ILocalLlmRuntime
+	     ist per #if IOS als IosLlamaCppRuntime registriert, alle anderen
+	     Plattformen erhalten UnavailableLocalLlmRuntime. Die 1,12 GB werden
+	     deshalb nur fuer iOS gepackt.
+
+	     Fuer Android spart das ueber ein Gigabyte totes Gewicht im APK, und der
+	     Windows-Build wird damit ueberhaupt erst baubar: MakePRI liest die Punkte
+	     im Dateinamen "qwen2.5-1.5b-instruct-q4_k_m.gguf" als Ressourcen-
+	     Qualifizierer und bricht mit "PRI249: Invalid qualifier:
+	     5B-INSTRUCT-Q4_K_M" ab. -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'ios'">
 		<MauiAsset Remove="Resources\Raw\Models\**" />
 	</ItemGroup>
 

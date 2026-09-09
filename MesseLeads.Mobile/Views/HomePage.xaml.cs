@@ -25,7 +25,7 @@ public partial class HomePage : ContentPage
         catch (Exception ex)
         {
             Debug.WriteLine("HomePage konnte nicht geladen werden: " + ex);
-            await Shell.Current.DisplayAlert(
+            await Shell.Current.DisplayAlertAsync(
                 "Startproblem",
                 "Die Startseite konnte nicht geladen werden. Bitte melde dich erneut an.",
                 "OK");

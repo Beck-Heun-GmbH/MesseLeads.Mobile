@@ -84,10 +84,13 @@ public sealed class LocalLeadImageService
 
     public async Task<LocalLeadImage?> PickBusinessCardPhotoAsync(Guid leadLocalId)
     {
-        var photo = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
+        var photos = await MediaPicker.PickPhotosAsync(new MediaPickerOptions
         {
             Title = "Visitenkarte auswählen"
         });
+
+        // Der Wizard verarbeitet genau ein Visitenkartenbild.
+        var photo = photos?.FirstOrDefault();
 
         if (photo is null)
         {

@@ -40,7 +40,7 @@ public partial class QrScanStepView : ContentView
         catch (Exception ex)
         {
             viewModel.SetQrPermissionState(false);
-            await Shell.Current.DisplayAlert(
+            await Shell.Current.DisplayAlertAsync(
                 "Kamera nicht verfügbar",
                 "Der Kamerazugriff konnte nicht gestartet werden: " + ex.Message,
                 "OK");

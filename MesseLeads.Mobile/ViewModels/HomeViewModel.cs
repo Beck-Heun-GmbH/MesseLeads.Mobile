@@ -186,7 +186,7 @@ public partial class HomeViewModel : BaseViewModel
     [RelayCommand]
     private async Task OpenMenuAsync()
     {
-        var action = await Shell.Current.DisplayActionSheet(
+        var action = await Shell.Current.DisplayActionSheetAsync(
             "FoxyLeads",
             "Abbrechen",
             null,

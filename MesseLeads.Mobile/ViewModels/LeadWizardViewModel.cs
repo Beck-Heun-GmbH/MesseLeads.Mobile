@@ -433,12 +433,17 @@ public partial class LeadWizardViewModel : BaseViewModel
             _localLeadId = Lead.LocalId;
         }
 
+        // Lead ist ab hier garantiert gesetzt. Ueber die await-Aufrufe hinweg
+        // kann der Compiler das fuer eine Property nicht nachvollziehen, daher
+        // die lokale Kopie der Referenz.
+        var lead = Lead;
+
         IsAdmin = await _authSessionService.IsAdminAsync();
-        _lookupGroups = await _lookupSyncService.GetGroupsAsync(Lead?.TradeFairKey);
+        _lookupGroups = await _lookupSyncService.GetGroupsAsync(lead.TradeFairKey);
         BuildSteps();
 
         LoadFromLead();
-        _savedSignature = BuildLeadSignature(Lead);
+        _savedSignature = BuildLeadSignature(lead);
         await LoadImagesAsync();
 
         _hasLoaded = true;
