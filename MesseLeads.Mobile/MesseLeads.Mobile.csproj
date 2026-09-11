@@ -65,11 +65,22 @@
 		<NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
-	  <!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
-	       llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
-	       Speicherverhalten beim Testen dem Release entspricht. -->
-	  <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
+	<!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
+	     llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
+	     Speicherverhalten beim Testen dem Release entspricht.
+
+	     Ausdruecklich NICHT fuer Simulatorziele: dort wird ad-hoc signiert, es
+	     gibt kein Provisioning Profile, das diese Berechtigungen decken koennte.
+	     Mit gesetzten Entitlements bricht das Bereitstellen in den Simulator
+	     still ab - der Build laeuft durch, danach passiert schlicht nichts mehr.
+	     Ist RuntimeIdentifier leer, greift der Geraetefall.
+
+	     Die Datei heisst bewusst Entitlements.Device.plist und nicht
+	     Entitlements.plist: Eine Datei mit letzterem Namen unter Platforms/iOS
+	     erkennt das iOS-SDK selbst und setzt CodesignEntitlements fuer *jeden*
+	     Build, womit diese Bedingung wirkungslos waere. -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
+	  <CodesignEntitlements>Platforms\iOS\Entitlements.Device.plist</CodesignEntitlements>
 	</PropertyGroup>
 
 	<!-- App-Store-Signatur, ausschliesslich fuer Release. Debug-Geraetebuilds
