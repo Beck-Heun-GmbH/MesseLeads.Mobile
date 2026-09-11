@@ -65,6 +65,21 @@
 		<NoWarn>$(NoWarn);MVVMTK0045</NoWarn>
 	</PropertyGroup>
 
+	<!-- Ein Geraetebuild liegt vor, wenn ausdruecklich ios-arm64 gebaut wird,
+	     oder wenn ohne RuntimeIdentifier in Release veroeffentlicht wird.
+
+	     Alles andere - insbesondere Visual Studio mit ausgewaehltem Simulator -
+	     gilt als Simulatorbuild. Wichtig: VS uebergibt den RuntimeIdentifier
+	     NICHT; er steht in der .user-Datei hinter der Bedingung
+	     TargetPlatformIdentifier=='iOS', die zu diesem Zeitpunkt noch nicht
+	     gesetzt ist. In VS ist der Wert daher leer, und eine Pruefung auf die
+	     Simulator-Kennungen allein wuerde ins Leere laufen. -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios'">
+		<_IstGeraeteBuild>false</_IstGeraeteBuild>
+		<_IstGeraeteBuild Condition="'$(RuntimeIdentifier)' == 'ios-arm64'">true</_IstGeraeteBuild>
+		<_IstGeraeteBuild Condition="'$(RuntimeIdentifier)' == '' And '$(Configuration)' == 'Release'">true</_IstGeraeteBuild>
+	</PropertyGroup>
+
 	<!-- Increased Memory Limit / Extended Virtual Addressing fuer die lokale
 	     llama.cpp-Inferenz. Gilt auch fuer Debug-Geraetebuilds, damit das
 	     Speicherverhalten beim Testen dem Release entspricht.
@@ -79,7 +94,7 @@
 	     Entitlements.plist: Eine Datei mit letzterem Namen unter Platforms/iOS
 	     erkennt das iOS-SDK selbst und setzt CodesignEntitlements fuer *jeden*
 	     Build, womit diese Bedingung wirkungslos waere. -->
-	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
+	<PropertyGroup Condition="'$(_IstGeraeteBuild)' == 'true'">
 	  <CodesignEntitlements>Platforms\iOS\Entitlements.Device.plist</CodesignEntitlements>
 	</PropertyGroup>
 
@@ -97,7 +112,7 @@
 	       dotnet build MesseLeads.Mobile.csproj -f net10.0-ios -c Release -p:ArchiveOnBuild=true
 	
 	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning". -->
-	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(Configuration)'=='Release' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
+	<PropertyGroup Condition="'$(_IstGeraeteBuild)' == 'true' And '$(Configuration)'=='Release'">
 		<ProvisioningType>manual</ProvisioningType>
 		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
 		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
@@ -124,7 +139,7 @@
 	     hinterlegt ist, bricht das Bereitstellen sogar wortlos ab - der Build
 	     laeuft durch, der Debug-Listener oeffnet, danach passiert nichts mehr.
 	     Debug-Geraetebuilds ueberlassen Zertifikat und Profil weiterhin VS. -->
-	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(Configuration)'=='Debug' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
+	<PropertyGroup Condition="'$(_IstGeraeteBuild)' == 'true' And '$(Configuration)'=='Debug'">
 	  <ProvisioningType>automatic</ProvisioningType>
 	</PropertyGroup>
 
@@ -272,7 +287,7 @@
 	     Simulatorbuilds werden ad hoc signiert und brauchen nichts davon. Diese
 	     Gruppe raeumt die Werte deshalb zuletzt wieder weg und macht spaetere
 	     Eingriffe von VS unschaedlich. -->
-	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'iossimulator-arm64' Or '$(RuntimeIdentifier)' == 'iossimulator-x64'">
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(_IstGeraeteBuild)' != 'true'">
 		<ProvisioningType></ProvisioningType>
 		<CodesignKey></CodesignKey>
 		<CodesignProvision></CodesignProvision>
