@@ -97,7 +97,7 @@
 	       dotnet build MesseLeads.Mobile.csproj -f net10.0-ios -c Release -p:ArchiveOnBuild=true
 	
 	     Den exakten CodesignKey liefert "security find-identity -v -p codesigning". -->
-	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Release'">
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(Configuration)'=='Release' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
 		<ProvisioningType>manual</ProvisioningType>
 		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
 		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
@@ -114,10 +114,17 @@
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' and '$(Configuration)'=='Debug'">
 	  <MtouchInterpreter>all</MtouchInterpreter>
-	  <!-- Debug ueberlaesst Zertifikat und Profil Visual Studio. Mit manueller
-	       Bereitstellung verlangt der Build auch fuer Simulatorziele ein Profil,
-	       und ein Development-Profil fuer dieses Team gibt es nicht. Release
-	       bleibt dagegen fest auf das App-Store-Profil gepinnt. -->
+	</PropertyGroup>
+
+	<!-- Bereitstellungsart nur fuer Geraetebuilds. Simulatorziele werden ad hoc
+	     signiert und brauchen weder Profil noch Signaturidentitaet. Erzwingt man
+	     dort "manual", bricht der Build mit "keine verfuegbaren
+	     Bereitstellungsprofile gefunden" ab; erzwingt man "automatic", ohne dass
+	     unter Extras > Optionen > .NET MAUI > Apple > Konten ein Apple-Konto
+	     hinterlegt ist, bricht das Bereitstellen sogar wortlos ab - der Build
+	     laeuft durch, der Debug-Listener oeffnet, danach passiert nichts mehr.
+	     Debug-Geraetebuilds ueberlassen Zertifikat und Profil weiterhin VS. -->
+	<PropertyGroup Condition="'$(TargetFramework)'=='net10.0-ios' And '$(Configuration)'=='Debug' And '$(RuntimeIdentifier)' != 'iossimulator-arm64' And '$(RuntimeIdentifier)' != 'iossimulator-x64'">
 	  <ProvisioningType>automatic</ProvisioningType>
 	</PropertyGroup>
 
@@ -230,9 +237,6 @@
 	     missing XCFrameworks fail the build instead of silently using fallback. -->
 	<PropertyGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
 		<DefineConstants>$(DefineConstants);HAS_LLAMA_NATIVE</DefineConstants>
-		<CodesignKey>Apple Distribution: Patrick Walther (D2B9G6QAYH)</CodesignKey>
-		<CodesignProvision>MesseLeads AppStore</CodesignProvision>
-		<ProvisioningType>manual</ProvisioningType>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
@@ -254,5 +258,25 @@
 	<ItemGroup>
 	  <Folder Include="Documentation\" />
 	</ItemGroup>
+
+	<!-- Letzte Instanz, bewusst am Ende der Datei.
+
+	     Visual Studio schreibt CodesignKey, CodesignProvision und
+	     ProvisioningType beim Oeffnen der Seite "Bundlesignierung" wiederholt in
+	     die erste PropertyGroup mit TargetFramework-Bedingung - unabhaengig von
+	     Konfiguration und RuntimeIdentifier. Landen diese Werte auf einem
+	     Simulatorziel, bricht das Bereitstellen ab: mit "manual" sichtbar als
+	     "keine verfuegbaren Bereitstellungsprofile gefunden", mit "automatic"
+	     ohne hinterlegtes Apple-Konto sogar wortlos.
+
+	     Simulatorbuilds werden ad hoc signiert und brauchen nichts davon. Diese
+	     Gruppe raeumt die Werte deshalb zuletzt wieder weg und macht spaetere
+	     Eingriffe von VS unschaedlich. -->
+	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'iossimulator-arm64' Or '$(RuntimeIdentifier)' == 'iossimulator-x64'">
+		<ProvisioningType></ProvisioningType>
+		<CodesignKey></CodesignKey>
+		<CodesignProvision></CodesignProvision>
+		<CodesignEntitlements></CodesignEntitlements>
+	</PropertyGroup>
 
 </Project>
